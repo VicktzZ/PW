@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders</title>
+    <script>
+
+        const moveNave = event => {
+            const myCanvas = document.querySelector('#myCanvas')
+            const ctx = myCanvas.getContext('2d')
+            const nave = document.querySelector('.nave')
+            ctx.drawImage(nave, event.offsetX-15, event.offsetY-15)
+        }
+
+        const iniciar = () => {
+            const myCanvas = document.querySelector('#myCanvas')
+            const ctx = myCanvas.getContext('2d')
+            const nave = document.querySelector('.nave')
+            const tiro = document.querySelector('.tiro')
+    
+            const inimigo1 = document.querySelector('.inimigo-fase1')
+            const inimigo2 = document.querySelector('.inimigo-fase2')
+            const inimigo3 = document.querySelector('.inimigo-fase3')
+
+            ctx.drawImage(nave, 50, 50)
+            ctx.drawImage(inimigo1, 150, 150)
+            
+        }
+        
+    </script>
+</head>
+<body onload="iniciar()" style="background-color: #222;">
+
+    <canvas onmousemove="moveNave(event)" style="border: solid grey 1px;" id="myCanvas" height="500" width="650">
+
+    </canvas>
+
+    <img src="img/inimigo-fase1.png" alt="" class="inimigo-fase1">
+    <img src="img/inimigo-fase2.png" alt="" class="inimigo-fase2">
+    <img src="img/inimigo-fase3.png" alt="" class="inimigo-fase3">
+    <img src="img/nave.png" alt="" class="nave">
+    <img src="img/tiro.png" alt="" class="tiro">
+</body>
+</html>
