@@ -5,36 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Invaders</title>
-    <script>
 
-        const moveNave = event => {
-            const myCanvas = document.querySelector('#myCanvas')
-            const ctx = myCanvas.getContext('2d')
-            const nave = document.querySelector('.nave')
-            ctx.drawImage(nave, event.offsetX-15, event.offsetY-15)
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            align-items: center;
+            background: url(./img/space-background.png);
+            background-size: cover;
+        }
+
+    </style>
+
+    <script>
+        let nave;
+
+        class Nave {
+            constructor(ctx, img) {
+                this.ctx = ctx
+                this.img = img
+                this.x = 0
+                this.y = 350
+            }
+
+            desenha(x, y){
+                this.ctx.clearRect(this.x, this.y, 35, 44)
+                this.x = x
+                this.y = y
+                this.ctx.drawImage(this.img, x, y)
+            }
+        }
+
+        const moveNave = e => {
+            nave.desenha(e.offsetX-15, e.offsetY-15)
         }
 
         const iniciar = () => {
             const myCanvas = document.querySelector('#myCanvas')
             const ctx = myCanvas.getContext('2d')
-            const nave = document.querySelector('.nave')
-            const tiro = document.querySelector('.tiro')
-    
-            const inimigo1 = document.querySelector('.inimigo-fase1')
-            const inimigo2 = document.querySelector('.inimigo-fase2')
-            const inimigo3 = document.querySelector('.inimigo-fase3')
+            const imagem = document.querySelector('.nave')
 
-            ctx.drawImage(nave, 50, 50)
-            ctx.drawImage(inimigo1, 150, 150)
-            
+            nave = new Nave(ctx, imagem)
         }
         
     </script>
 </head>
-<body onload="iniciar()" style="background-color: #222;">
+<body onload="iniciar()"></body>
 
-    <canvas onmousemove="moveNave(event)" style="border: solid grey 1px;" id="myCanvas" height="500" width="650">
-
+    <canvas onmousemove="moveNave(event)" style="border: 1px solid white;" id="myCanvas" height="500" width="650">
     </canvas>
 
     <img src="img/inimigo-fase1.png" alt="" class="inimigo-fase1">
