@@ -20,8 +20,6 @@
     </style>
 
     <script>
-        let nave;
-
         class Nave {
             constructor(ctx, img) {
                 this.ctx = ctx
@@ -30,31 +28,69 @@
                 this.y = 350
             }
 
-            desenha(x, y){
+            desenha(){
+                this.ctx.drawImage(this.img, this.x, this.y)
+            }
+
+            apaga() {
                 this.ctx.clearRect(this.x, this.y, 35, 44)
-                this.x = x
-                this.y = y
-                this.ctx.drawImage(this.img, x, y)
+            }
+
+            move() {
+                if (this.destinoX == this.x) {
+                    return
+                }
+
+                this.apaga();
+
+                if (this.destinoX > this.x) {
+                    this.x += 2
+                }
+
+                if (this.destinoX < this.x) {
+                    this.x -= 2;
+                }
+
+                this.desenha();
+            }
+
+            pos(x) {
+                this.destinoX = x
             }
         }
 
-        const moveNave = e => {
-            nave.desenha(e.offsetX-15, e.offsetY-15)
+        const pos = e => { 
+            nave.pos(e.offSetX)
+        }
+
+        const moveNave = x => {
+            this.destinoX = x
+        }
+
+        let nave
+        
+        const executaCiclo = () => {
+            nave.move()
         }
 
         const iniciar = () => {
             const myCanvas = document.querySelector('#myCanvas')
             const ctx = myCanvas.getContext('2d')
-            const imagem = document.querySelector('.nave')
+            const img = document.querySelector('.nave')
 
-            nave = new Nave(ctx, imagem)
+            nave = new Nave(ctx, img)
+
+            window.setInterval(executaCiclo, 10)
         }
+
         
+
+
     </script>
 </head>
 <body onload="iniciar()"></body>
 
-    <canvas onmousemove="moveNave(event)" style="border: 1px solid white;" id="myCanvas" height="500" width="650">
+    <canvas onmousemove="pos(event)" style="border: 1px solid white;" id="myCanvas" height="500" width="650">
     </canvas>
 
     <img src="img/inimigo-fase1.png" alt="" class="inimigo-fase1">
